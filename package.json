@@ -1,0 +1,39 @@
+{
+  "name": "zkipp",
+  "version": "1.0.0",
+  "description": "## Overview We propose a Zero-Knowledge Inclusion Proof Protocol (ZKIPP), enabling validators to prove the presence of domain-tagged IoT transactions in anchored snapshots  without disclosing Merkle path, sibling nodes, or domain metadata. This is achieved through a Poseidon-based zkSNARK circuit, which supports fast, lightweight  privacy-preserving validation as a standalone module",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compile:circom": "circom circuits/inclusion.circom --r1cs --wasm --sym -o setup/",
+    "setup:trusted": "snarkjs groth16 setup setup/inclusion.r1cs setup/powersOfTau28_hez_final_16.ptau setup/inclusion.zkey",
+    "export:verifier": "snarkjs zkey export verificationkey setup/inclusion.zkey setup/verifier.json",
+    "prove": "node utils/generateProof.js",
+    "verify": "node utils/verifyProof.js",
+    "build:merkle": "node utils/merkleBuilder.js",
+    "generate:proof": "node utils/generateProof.js",
+
+    "proof-verification-runtime": "npx snarkjs groth16 verify setup/verifier.json setup/public.json setup/proof.json",
+    "export-verification-key": "npx snarkjs zkey export verificationkey setup/inclusion.zkey setup/verifier.json"
+  },
+  "keywords": [],
+  "author": "salmanbao <salmancodez@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@zk-kit/binary-merkle-root.circom": "^1.0.0",
+    "@zk-kit/incremental-merkle-tree": "^1.1.0",
+    "bignumber.js": "^9.3.0",
+    "body-parser": "^2.2.0",
+    "circomlibjs": "^0.1.7",
+    "dotenv": "^16.5.0",
+    "ethers": "^6.14.3",
+    "express": "^5.1.0",
+    "fs-extra": "^11.3.0",
+    "global": "^4.4.0",
+    "poseidon-lite": "^0.3.0",
+    "snarkjs": "^0.7.5",
+    "uuid": "^11.1.0"
+  }
+}
