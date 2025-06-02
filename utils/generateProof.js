@@ -8,7 +8,7 @@ const CONFIG = {
   circuitName: 'inclusion',
   wasmPath: './setup/inclusion_js/inclusion.wasm',
   zkeyPath: './setup/inclusion.zkey',
-  inputPath: './setup/input.json',
+  inputPath: './input.json',
   witnessPath: './setup/witness.wtns',
   proofPath: './setup/proof.json',
   publicPath: './setup/public.json'
